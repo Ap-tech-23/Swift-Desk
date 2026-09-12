@@ -1,1 +1,7 @@
-{}
+{
+  "name": "SwiftDesk",
+  "short_name": "SwiftDesk",
+  "display": "standalone",
+  "background_color": "#0F172A",
+  "theme_color": "#2563EB"
+}
