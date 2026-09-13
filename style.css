@@ -43,3 +43,23 @@ button{
   font-size:12px;
   margin-top:16px;
 }
+
+.top{
+  color:white;
+  text-align:center;
+  margin:30px;
+}
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+  padding:20px;
+}
+.card{
+  background:#1E293B;
+  color:white;
+  border-radius:16px;
+  padding:30px 10px;
+  text-align:center;
+  font-weight:bold;
+}
