@@ -1,5 +1,4 @@
 import { app } from "./firebase.js";
-
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -8,19 +7,17 @@ import {
 
 const auth = getAuth(app);
 
-const email = document.querySelector('input[type="email"]');
-const password = document.querySelector('input[type="password"]');
-const signin = document.querySelector("button");
-const signup = document.getElementById("signup");
+const email = document.getElementById("email");
+const password = document.getElementById("password");
 
-signin.addEventListener("click", () => {
+document.getElementById("signin").onclick = () => {
   signInWithEmailAndPassword(auth, email.value, password.value)
-    .then(() => alert("Login Successful"))
-    .catch((e) => alert(e.message));
-});
+    .then(() => window.location = "dashboard.html")
+    .catch(e => alert(e.message));
+};
 
-signup.addEventListener("click", () => {
+document.getElementById("signup").onclick = () => {
   createUserWithEmailAndPassword(auth, email.value, password.value)
-    .then(() => alert("Account Created"))
-    .catch((e) => alert(e.message));
-});
+    .then(() => window.location = "dashboard.html")
+    .catch(e => alert(e.message));
+};
