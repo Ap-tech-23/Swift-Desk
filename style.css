@@ -109,3 +109,43 @@ body{
   text-align:left;
   margin:20px 0;
 }
+.hero{
+  background:linear-gradient(135deg,#2563EB,#7C3AED);
+  margin:16px;
+  padding:24px;
+  border-radius:24px;
+  color:#fff;
+}
+.hello{opacity:.9;margin:0}
+.hero h1{margin:8px 0;font-size:32px}
+
+.stats{
+  display:flex;
+  gap:12px;
+  margin:16px;
+}
+.stat{
+  flex:1;
+  background:#172554;
+  border-radius:18px;
+  padding:18px;
+  text-align:center;
+  color:#fff;
+}
+.stat h2{margin:0;font-size:28px}
+
+.menu{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin:16px;
+}
+.big-card{
+  background:#1E293B;
+  color:#fff;
+  text-decoration:none;
+  padding:18px;
+  border-radius:18px;
+  font-size:18px;
+  font-weight:600;
+}
