@@ -9,8 +9,8 @@ import {
 
 const auth = getAuth(app);
 
-const email = document.getElementById("email");
-const password = document.getElementById("password");
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
 
 const signin = document.getElementById("signin");
 if (signin) {
