@@ -21,3 +21,14 @@ document.getElementById("signup").onclick = () => {
     .then(() => window.location = "dashboard.html")
     .catch(e => alert(e.message));
 };
+import { signOut } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+const logout = document.getElementById("logout");
+
+if (logout) {
+  logout.onclick = () => {
+    signOut(auth).then(() => {
+      window.location = "index.html";
+    });
+  };
+}
