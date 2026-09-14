@@ -32,3 +32,14 @@ if (logout) {
     });
   };
 }
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    const email = document.getElementById("email");
+    if (email) email.textContent = user.email;
+
+    const name = document.getElementById("name");
+    if (name) name.textContent = user.email.split("@")[0];
+  }
+});
