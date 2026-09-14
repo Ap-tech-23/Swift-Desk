@@ -1,4 +1,4 @@
-import { app } from "./firebase.js";
+import { app, db } from "./firebase.js";
 import {
   getAuth,
   signInWithEmailAndPassword,
