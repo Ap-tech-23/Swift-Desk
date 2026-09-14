@@ -28,7 +28,7 @@ const signup = document.getElementById("signup");
 if (signup) {
   signup.onclick = async () => {
     try {
-      await createUserWithEmailAndPassword(auth, email.value, password.value);
+      await createUserWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
       location.href = "dashboard.html";
     } catch (e) {
       alert(e.message);
