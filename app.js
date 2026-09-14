@@ -43,3 +43,27 @@ onAuthStateChanged(auth, (user) => {
     if (name) name.textContent = user.email.split("@")[0];
   }
 });
+import {
+  getStorage, ref, uploadBytes, getDownloadURL
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-storage.js";
+
+const storage = getStorage(app);
+
+const uploadBtn = document.getElementById("uploadBtn");
+
+if (uploadBtn) {
+  uploadBtn.onclick = async () => {
+    const file = document.getElementById("pdfFile").files[0];
+    if (!file) return alert("Select a PDF first");
+
+    const fileRef = ref(storage, "notes/" + file.name);
+    await uploadBytes(fileRef, file);
+
+    const url = await getDownloadURL(fileRef);
+
+    document.getElementById("notesList").innerHTML +=
+      `<p><a href="${url}" target="_blank">${file.name}</a></p>`;
+
+    alert("PDF uploaded successfully!");
+  };
+}
