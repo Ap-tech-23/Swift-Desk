@@ -5,17 +5,19 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="top">
-    <h2>📚 My Notes</h2>
-    <p>Science • Maths • English • History</p>
-  </div>
+ 
+ <div class="top">
+  <h2>📚 My Notes</h2>
+  <p>Upload & manage study material</p>
+</div>
 
-  <div class="grid">
-    <div class="card">Science</div>
-    <div class="card">Maths</div>
-    <div class="card">English</div>
-    <div class="card">History</div>
-  </div>
+<div class="profile-card">
+  <input type="file" id="pdfFile" accept=".pdf">
+  <button id="uploadBtn">Upload PDF</button>
+
+  <h3>Uploaded Notes</h3>
+  <div id="notesList"></div>
+</div>
   <div class="nav">
   <a href="dashboard.html">🏠</a>
   <a href="notes.html">📚</a>
