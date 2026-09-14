@@ -14,19 +14,25 @@ const password = document.getElementById("password");
 
 const signin = document.getElementById("signin");
 if (signin) {
-  signin.onclick = () => {
-    signInWithEmailAndPassword(auth, email.value, password.value)
-      .then(() => location.href = "dashboard.html")
-      .catch(e => alert(e.message));
+  signin.onclick = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, email.value, password.value);
+      location.href = "dashboard.html";
+    } catch (e) {
+      alert(e.message);
+    }
   };
 }
 
 const signup = document.getElementById("signup");
 if (signup) {
-  signup.onclick = () => {
-    createUserWithEmailAndPassword(auth, email.value, password.value)
-      .then(() => location.href = "dashboard.html")
-      .catch(e => alert(e.message));
+  signup.onclick = async () => {
+    try {
+      await createUserWithEmailAndPassword(auth, email.value, password.value);
+      location.href = "dashboard.html";
+    } catch (e) {
+      alert(e.message);
+    }
   };
 }
 
@@ -35,7 +41,7 @@ if (logout) {
   logout.onclick = () => signOut(auth).then(() => location.href = "index.html");
 }
 
-onAuthStateChanged(auth, user => {
+onAuthStateChanged(auth, (user) => {
   const n = document.getElementById("name");
   const e = document.getElementById("email");
   if (user) {
