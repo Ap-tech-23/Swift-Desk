@@ -1,54 +1,68 @@
-
 body{
   margin:0;
   font-family:Arial,sans-serif;
   background:#0F172A;
+  min-height:100vh;
+  padding-bottom:80px;
+}
+
+/* Login Page */
+.login-page{
   display:flex;
   justify-content:center;
   align-items:center;
-  height:100vh;
+  min-height:100vh;
 }
+
 .login-box{
   width:300px;
   background:#1E293B;
   padding:24px;
-  border-radius:18px;
+  border-radius:20px;
 }
+
 h1{color:white;text-align:center;}
-.sub,.or,.footer{
-  color:#CBD5E1;
-  text-align:center;
-}
+h2,h3{color:white;margin:0;}
+.sub,.or,.footer{color:#CBD5E1;text-align:center;}
+p,span{color:#CBD5E1;}
+
 input{
   width:100%;
   padding:12px;
   margin:8px 0;
   border:none;
-  border-radius:10px;
+  border-radius:12px;
+  box-sizing:border-box;
 }
+
 button{
   width:100%;
   padding:12px;
   border:none;
-  border-radius:10px;
+  border-radius:12px;
   background:#2563EB;
   color:white;
   font-weight:bold;
 }
-.google{
-  background:white;
-  color:black;
-}
+
 .footer{
   font-size:12px;
   margin-top:16px;
 }
+
+/* Dashboard */
 .hero{
   background:linear-gradient(135deg,#2563EB,#7C3AED);
   margin:16px;
   padding:24px;
   border-radius:24px;
   color:white;
+}
+
+.hello{margin:0;opacity:.9;}
+.hero h1{
+  font-size:32px;
+  margin:8px 0;
 }
 
 .stats{
@@ -63,7 +77,12 @@ button{
   border-radius:18px;
   padding:18px;
   text-align:center;
+}
+
+.stat h2{
+  margin:0;
   color:white;
+  font-size:28px;
 }
 
 .menu{
@@ -74,6 +93,7 @@ button{
 }
 
 .big-card{
+  display:block;
   background:#1E293B;
   color:white;
   text-decoration:none;
@@ -81,9 +101,35 @@ button{
   border-radius:18px;
   font-size:18px;
   font-weight:600;
-  display:block;
 }
 
+/* Profile */
+.profile-card{
+  background:#1E293B;
+  margin:16px;
+  border-radius:20px;
+  padding:20px;
+  color:white;
+}
+
+.avatar{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  background:#2563EB;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:auto;
+  font-size:32px;
+  font-weight:bold;
+}
+
+.info{
+  margin-top:20px;
+}
+
+/* Bottom Navigation */
 .nav{
   position:fixed;
   bottom:0;
@@ -99,74 +145,4 @@ button{
   color:white;
   text-decoration:none;
   font-size:24px;
-}
-
-body{
-  padding-bottom:70px;
-}
-.profile-card{
-  background:#1E293B;
-  margin:20px;
-  border-radius:20px;
-  padding:20px;
-  text-align:center;
-  color:white;
-}
-
-.avatar{
-  width:80px;
-  height:80px;
-  border-radius:50%;
-  background:#2563EB;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:32px;
-  font-weight:bold;
-}
-
-.info{
-  text-align:left;
-  margin:20px 0;
-}
-.hero{
-  background:linear-gradient(135deg,#2563EB,#7C3AED);
-  margin:16px;
-  padding:24px;
-  border-radius:24px;
-  color:#fff;
-}
-.hello{opacity:.9;margin:0}
-.hero h1{margin:8px 0;font-size:32px}
-
-.stats{
-  display:flex;
-  gap:12px;
-  margin:16px;
-}
-.stat{
-  flex:1;
-  background:#172554;
-  border-radius:18px;
-  padding:18px;
-  text-align:center;
-  color:#fff;
-}
-.stat h2{margin:0;font-size:28px}
-
-.menu{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  margin:16px;
-}
-.big-card{
-  background:#1E293B;
-  color:#fff;
-  text-decoration:none;
-  padding:18px;
-  border-radius:18px;
-  font-size:18px;
-  font-weight:600;
 }
