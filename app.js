@@ -11,7 +11,7 @@ const auth = getAuth(app);
 
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
-
+const fullNameInput = document.getElementById("fullname");
 const signin = document.getElementById("signin");
 if (signin) {
   signin.onclick = async () => {
@@ -25,10 +25,21 @@ if (signin) {
 }
 
 const signup = document.getElementById("signup");
+
 if (signup) {
   signup.onclick = async () => {
     try {
-      await createUserWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
+      const cred = await createUserWithEmailAndPassword(
+        auth,
+        emailInput.value,
+        passwordInput.value
+      );
+
+      await setDoc(doc(db, "users", cred.user.uid), {
+        name: fullNameInput.value,
+        email: emailInput.value
+      });
+
       location.href = "dashboard.html";
     } catch (e) {
       alert(e.message);
@@ -41,16 +52,20 @@ if (logout) {
   logout.onclick = () => signOut(auth).then(() => location.href = "index.html");
 }
 
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
   if (user) {
     const username = document.getElementById("username");
     const profileName = document.getElementById("name");
     const profileEmail = document.getElementById("email");
 
-    const displayName = user.email.split("@")[0];
+    const snap = await getDoc(doc(db, "users", user.uid));
 
-    if (username) username.textContent = displayName;
-    if (profileName) profileName.textContent = displayName;
-    if (profileEmail) profileEmail.textContent = user.email;
+    if (snap.exists()) {
+      const data = snap.data();
+
+      if (username) username.textContent = data.name;
+      if (profileName) profileName.textContent = data.name;
+      if (profileEmail) profileEmail.textContent = data.email;
+    }
   }
 });
