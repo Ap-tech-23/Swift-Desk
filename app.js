@@ -42,10 +42,15 @@ if (logout) {
 }
 
 onAuthStateChanged(auth, (user) => {
-  const n = document.getElementById("name");
-  const e = document.getElementById("email");
   if (user) {
-    if (n) n.textContent = user.email.split("@")[0];
-    if (e) e.textContent = user.email;
+    const username = document.getElementById("username");
+    const profileName = document.getElementById("name");
+    const profileEmail = document.getElementById("email");
+
+    const displayName = user.email.split("@")[0];
+
+    if (username) username.textContent = displayName;
+    if (profileName) profileName.textContent = displayName;
+    if (profileEmail) profileEmail.textContent = user.email;
   }
 });
