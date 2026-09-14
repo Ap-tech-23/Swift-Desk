@@ -56,7 +56,7 @@ if (uploadBtn) {
     const file = document.getElementById("pdfFile").files[0];
     if (!file) return alert("Select a PDF first");
 
-    const fileRef = ref(storage, "notes/" + file.name);
+    const fileRef = ref(storage, `notes/${Date.now()}-${file.name}`);
     await uploadBytes(fileRef, file);
 
     const url = await getDownloadURL(fileRef);
