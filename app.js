@@ -1,4 +1,5 @@
 import { app, db } from "./firebase.js";
+import { doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 import {
   getAuth,
   signInWithEmailAndPassword,
