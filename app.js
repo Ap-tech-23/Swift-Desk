@@ -16,7 +16,7 @@ const signin = document.getElementById("signin");
 if (signin) {
   signin.onclick = async () => {
     try {
-      await signInWithEmailAndPassword(auth, email.value, password.value);
+      await signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
       location.href = "dashboard.html";
     } catch (e) {
       alert(e.message);
