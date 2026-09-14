@@ -1,4 +1,4 @@
-body{
+  body{
   margin:0;
   font-family:Arial,sans-serif;
   background:#0F172A;
@@ -6,7 +6,6 @@ body{
   padding-bottom:80px;
 }
 
-/* Login Page */
 .login-page{
   display:flex;
   justify-content:center;
@@ -21,10 +20,8 @@ body{
   border-radius:20px;
 }
 
-h1{color:white;text-align:center;}
-h2,h3{color:white;margin:0;}
-.sub,.or,.footer{color:#CBD5E1;text-align:center;}
-p,span{color:#CBD5E1;}
+h1,h2,h3{color:white;}
+.sub,.or,.footer,p,span{color:#CBD5E1;}
 
 input{
   width:100%;
@@ -45,12 +42,6 @@ button{
   font-weight:bold;
 }
 
-.footer{
-  font-size:12px;
-  margin-top:16px;
-}
-
-/* Dashboard */
 .hero{
   background:linear-gradient(135deg,#2563EB,#7C3AED);
   margin:16px;
@@ -59,17 +50,7 @@ button{
   color:white;
 }
 
-.hello{margin:0;opacity:.9;}
-.hero h1{
-  font-size:32px;
-  margin:8px 0;
-}
-
-.stats{
-  display:flex;
-  gap:12px;
-  margin:16px;
-}
+.stats{display:flex;gap:12px;margin:16px;}
 
 .stat{
   flex:1;
@@ -77,12 +58,7 @@ button{
   border-radius:18px;
   padding:18px;
   text-align:center;
-}
-
-.stat h2{
-  margin:0;
   color:white;
-  font-size:28px;
 }
 
 .menu{
@@ -99,16 +75,13 @@ button{
   text-decoration:none;
   padding:18px;
   border-radius:18px;
-  font-size:18px;
-  font-weight:600;
 }
 
-/* Profile */
 .profile-card{
   background:#1E293B;
   margin:16px;
-  border-radius:20px;
   padding:20px;
+  border-radius:20px;
   color:white;
 }
 
@@ -122,14 +95,8 @@ button{
   justify-content:center;
   margin:auto;
   font-size:32px;
-  font-weight:bold;
 }
 
-.info{
-  margin-top:20px;
-}
-
-/* Bottom Navigation */
 .nav{
   position:fixed;
   bottom:0;
