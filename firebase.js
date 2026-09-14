@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 const firebaseConfig = {
-  apiKey: "AIzaSyBrVLt4T0fD_-OYntIirF1JH_XuLebtk3o",
+apiKey: "AIzaSyBrVLt4T0fD_-OYntIirF1JH_XuLebtk3o",
   authDomain: "swift-desk-77ecc.firebaseapp.com",
   projectId: "swift-desk-77ecc",
   storageBucket: "swift-desk-77ecc.firebasestorage.app",
