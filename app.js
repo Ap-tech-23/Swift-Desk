@@ -1,3 +1,4 @@
+alert("App loaded");
 import { app } from "./firebase.js";
 import {
   getAuth,
