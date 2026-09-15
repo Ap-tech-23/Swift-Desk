@@ -1,27 +1,77 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Quizzes</title>
+  <title>Swift Desk - AI Quiz</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="top">
-    <h2>📝 Quizzes</h2>
-    <p>Practice by subject</p>
+
+<div class="hero">
+  <p>📝 AI Quiz Generator</p>
+  <h1>Create Any Quiz</h1>
+  <p>MCQ • Written • Mixed</p>
+</div>
+
+<div class="menu">
+
+  <div class="big-card">
+    <h3>Topic</h3>
+    <input id="topic" type="text"
+      placeholder="e.g. Photosynthesis">
   </div>
 
-  <div class="grid">
-    <div class="card">Science</div>
-    <div class="card">Maths</div>
-    <div class="card">English</div>
-    <div class="card">SST</div>
+  <div class="big-card">
+    <h3>Quiz Type</h3>
+    <select id="type">
+      <option>MCQ</option>
+      <option>Written</option>
+      <option>Mixed</option>
+    </select>
   </div>
-  <div class="nav">
+
+  <div class="big-card">
+    <h3>Difficulty</h3>
+    <select id="difficulty">
+      <option>Easy</option>
+      <option>Medium</option>
+      <option>Hard</option>
+      <option>Board Exam</option>
+    </select>
+  </div>
+
+  <div class="big-card">
+    <h3>Questions</h3>
+    <select id="questions">
+      <option>5</option>
+      <option>10</option>
+      <option>15</option>
+      <option>20</option>
+      <option>30</option>
+    </select>
+  </div>
+
+  <div class="big-card">
+    <h3>Timer</h3>
+    <select id="timer">
+      <option>10 Minutes</option>
+      <option>20 Minutes</option>
+      <option>30 Minutes</option>
+      <option>60 Minutes</option>
+      <option>No Timer</option>
+    </select>
+  </div>
+
+  <button id="generateQuiz">Generate Quiz</button>
+
+</div>
+
+<div class="nav">
   <a href="dashboard.html">🏠</a>
   <a href="notes.html">📚</a>
   <a href="quiz.html">📝</a>
   <a href="ai.html">🤖</a>
   <a href="profile.html">👤</a>
 </div>
+
 </body>
 </html>
