@@ -14,16 +14,12 @@ const fullNameInput = document.getElementById("fullname");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 
-// SIGN IN
+// Sign In
 const signin = document.getElementById("signin");
 if (signin) {
   signin.onclick = async () => {
     try {
-      await signInWithEmailAndPassword(
-        auth,
-        emailInput.value,
-        passwordInput.value
-      );
+      await signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
       location.href = "dashboard.html";
     } catch (e) {
       alert(e.message);
@@ -31,7 +27,7 @@ if (signin) {
   };
 }
 
-// CREATE ACCOUNT
+// Create Account
 const signup = document.getElementById("signup");
 if (signup) {
   signup.onclick = async () => {
@@ -53,22 +49,40 @@ if (signup) {
   };
 }
 
-// LOGOUT
+// Logout
 const logout = document.getElementById("logout");
 if (logout) {
-  logout.onclick = () =>
-    signOut(auth).then(() => (location.href = "index.html"));
+  logout.onclick = async () => {
+    await signOut(auth);
+    location.href = "index.html";
+  };
 }
 
-// SHOW NAME
+// Load profile
 onAuthStateChanged(auth, (user) => {
-  if (user) {
-    const username = document.getElementById("username");
-    const profileName = document.getElementById("name");
-    const profileEmail = document.getElementById("email");
+  if (!user) return;
 
-    if (username) username.textContent = user.displayName || "Student";
-    if (profileName) profileName.textContent = user.displayName || "Student";
-    if (profileEmail) profileEmail.textContent = user.email;
-  }
+  const username = document.getElementById("username");
+  const profileName = document.getElementById("name");
+  const profileEmail = document.getElementById("email");
+
+  if (username) username.textContent = user.displayName || "Student";
+  if (profileName) profileName.textContent = user.displayName || "Student";
+  if (profileEmail) profileEmail.textContent = user.email;
+
+  const cls = document.getElementById("class");
+  const board = document.getElementById("board");
+
+  if (cls) cls.value = localStorage.getItem("class") || "Diploma";
+  if (board) board.value = localStorage.getItem("board") || "MSBTE";
 });
+
+// Save Profile
+const save = document.getElementById("saveProfile");
+if (save) {
+  save.onclick = () => {
+    localStorage.setItem("class", document.getElementById("class").value);
+    localStorage.setItem("board", document.getElementById("board").value);
+    alert("Profile Saved!");
+  };
+}
