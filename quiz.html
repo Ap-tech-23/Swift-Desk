@@ -1,67 +1,76 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Swift Desk - AI Quiz</title>
+  <title>Swift Desk • Sophia Quiz</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="hero">
-  <p>📝 AI Quiz Generator</p>
-  <h1>Create Any Quiz</h1>
-  <p>MCQ • Written • Mixed</p>
+  <p>📝 Sophia AI</p>
+  <h1>AI Quiz Generator</h1>
+  <p>Create & attempt quizzes</p>
 </div>
 
-<div class="menu">
+<div id="setup" class="menu">
 
   <div class="big-card">
     <h3>Topic</h3>
-    <input id="topic" type="text"
-      placeholder="e.g. Photosynthesis">
-  </div>
-
-  <div class="big-card">
-    <h3>Quiz Type</h3>
-    <select id="type">
-      <option>MCQ</option>
-      <option>Written</option>
-      <option>Mixed</option>
-    </select>
+    <input id="topic" placeholder="Photosynthesis">
   </div>
 
   <div class="big-card">
     <h3>Difficulty</h3>
-    <select id="difficulty">
+    <select id="level">
       <option>Easy</option>
       <option>Medium</option>
       <option>Hard</option>
-      <option>Board Exam</option>
     </select>
   </div>
 
   <div class="big-card">
     <h3>Questions</h3>
-    <select id="questions">
+    <select id="count">
       <option>5</option>
       <option>10</option>
-      <option>15</option>
-      <option>20</option>
-      <option>30</option>
     </select>
+  </div>
+
+  <button id="startQuiz">Generate Quiz</button>
+
+</div>
+
+<div id="quiz" class="menu" style="display:none">
+
+  <div class="big-card">
+    <h3 id="timer">05:00</h3>
+    <p id="qno">Question 1 / 5</p>
+    <h2 id="question"></h2>
+  </div>
+
+  <button class="option" onclick="choose(0)" id="o0"></button>
+  <button class="option" onclick="choose(1)" id="o1"></button>
+  <button class="option" onclick="choose(2)" id="o2"></button>
+  <button class="option" onclick="choose(3)" id="o3"></button>
+
+  <button id="nextBtn">Next</button>
+
+</div>
+
+<div id="result" class="menu" style="display:none">
+
+  <div class="big-card">
+    <h1>🎉 Quiz Finished</h1>
+    <h2 id="score"></h2>
+    <p id="remark"></p>
   </div>
 
   <div class="big-card">
-    <h3>Timer</h3>
-    <select id="timer">
-      <option>10 Minutes</option>
-      <option>20 Minutes</option>
-      <option>30 Minutes</option>
-      <option>60 Minutes</option>
-      <option>No Timer</option>
-    </select>
+    <h3>Sophia's Review</h3>
+    <p>Revise the topic once and practice another quiz for better retention.</p>
   </div>
 
-  <button id="generateQuiz">Generate Quiz</button>
+  <button onclick="location.reload()">Generate New Quiz</button>
 
 </div>
 
@@ -72,6 +81,69 @@
   <a href="ai.html">🤖</a>
   <a href="profile.html">👤</a>
 </div>
+
+<script>
+const bank=[
+{q:"What is photosynthesis?",o:["Food making process","Respiration","Digestion","Excretion"],a:0},
+{q:"Which pigment absorbs sunlight?",o:["Chlorophyll","Haemoglobin","Melanin","Keratin"],a:0},
+{q:"Plants take which gas?",o:["Oxygen","Nitrogen","Carbon Dioxide","Hydrogen"],a:2},
+{q:"Food is stored as?",o:["Protein","Starch","Fat","Vitamin"],a:1},
+{q:"Energy source is?",o:["Moon","Sunlight","Wind","Water"],a:1}
+];
+
+let index=0,score=0,selected=-1,time=300,quiz=[];
+
+document.getElementById("startQuiz").onclick=()=>{
+ quiz=bank.slice(0,Number(count.value));
+ setup.style.display="none";
+ quizDiv.style.display="flex";
+ load();
+ runTimer();
+};
+
+const quizDiv=document.getElementById("quiz");
+
+function load(){
+ let x=quiz[index];
+ qno.innerText=`Question ${index+1} / ${quiz.length}`;
+ question.innerText=x.q;
+ x.o.forEach((t,i)=>document.getElementById("o"+i).innerText=t);
+ selected=-1;
+}
+
+function choose(i){
+ selected=i;
+ ["o0","o1","o2","o3"].forEach(id=>document.getElementById(id).style.background="#2563EB");
+ document.getElementById("o"+i).style.background="#16A34A";
+}
+
+nextBtn.onclick=()=>{
+ if(selected===quiz[index].a) score++;
+ index++;
+ if(index<quiz.length) load();
+ else finish();
+};
+
+function finish(){
+ quizDiv.style.display="none";
+ result.style.display="flex";
+ scoreText=`${score} / ${quiz.length}`;
+ document.getElementById("score").innerText=scoreText;
+ document.getElementById("remark").innerText=
+ score===quiz.length?"Excellent! 🌟":
+ score>=3?"Great job! 👍":"Keep practicing 💪";
+}
+
+function runTimer(){
+ setInterval(()=>{
+  if(time<=0){finish();return;}
+  time--;
+  let m=String(Math.floor(time/60)).padStart(2,"0");
+  let s=String(time%60).padStart(2,"0");
+  timer.innerText=`${m}:${s}`;
+ },1000);
+}
+</script>
 
 </body>
 </html>
