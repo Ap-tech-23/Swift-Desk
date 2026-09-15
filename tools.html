@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Swift Desk • Tools</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* =====================================================
+       SWIFT DESK TOOLS
+       ===================================================== */
+
+    .tools-intro {
+      margin: 16px;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+
+    .tool-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tool-icon {
+      width: 52px;
+      height: 52px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 14px;
+
+      border-radius: 16px;
+
+      background: linear-gradient(
+        135deg,
+        rgba(59, 130, 246, 0.22),
+        rgba(139, 92, 246, 0.22)
+      );
+
+      font-size: 25px;
+    }
+
+    .tool-card h3 {
+      margin-bottom: 7px;
+    }
+
+    .tool-card p {
+      margin-bottom: 14px;
+    }
+
+    .editor-card {
+      grid-column: 1 / -1;
+    }
+
+    .editor {
+      width: 100%;
+      min-height: 260px;
+
+      padding: 18px;
+
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      border-radius: 18px;
+
+      background: rgba(7, 10, 19, 0.7);
+
+      color: #f8fafc;
+
+      resize: vertical;
+
+      line-height: 1.65;
+    }
+
+    .editor:focus {
+      border-color: rgba(96, 165, 250, 0.6);
+    }
+
+    .tool-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .tool-row button {
+      margin-top: 0;
+    }
+
+    .small-btn {
+      padding: 11px 12px;
+      font-size: 13px;
+    }
+
+    .status {
+      min-height: 20px;
+
+      margin-top: 10px;
+
+      color: #94a3b8;
+
+      font-size: 13px;
+    }
+
+    .counter {
+      display: flex;
+      justify-content: space-between;
+
+      margin-top: 8px;
+
+      color: #64748b;
+
+      font-size: 12px;
+    }
+
+    .converter-output {
+      min-height: 120px;
+
+      margin-top: 12px;
+      padding: 15px;
+
+      border: 1px solid rgba(148, 163, 184, 0.1);
+      border-radius: 16px;
+
+      background: rgba(30, 41, 59, 0.55);
+
+      color: #cbd5e1;
+
+      white-space: pre-wrap;
+      word-break: break-word;
+
+      line-height: 1.6;
+    }
+
+    .voice-active {
+      background: linear-gradient(
+        135deg,
+        #ef4444,
+        #dc2626
+      ) !important;
+
+      animation: pulse 1.2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 rgba(239, 68, 68, 0);
+      }
+
+      50% {
+        box-shadow: 0 0 25px rgba(239, 68, 68, 0.35);
+      }
+
+      100% {
+        box-shadow: 0 0 0 rgba(239, 68, 68, 0);
+      }
+    }
+
+    @media (max-width: 599px) {
+
+      .tool-row {
+        grid-template-columns: 1fr;
+      }
+
+      .editor {
+        min-height: 220px;
+      }
+
+    }
+
+    @media (min-width: 900px) {
+
+      .tools-intro {
+        margin: 20px 16px;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =====================================================
+       HERO
+       ===================================================== -->
+
+  <div class="hero">
+
+    <p>🛠️ Swift Desk</p>
+
+    <h1>Smart Tools</h1>
+
+    <p>
+      Write, format, convert and organize your work faster.
+    </p>
+
+  </div>
+
+
+  <p class="tools-intro">
+    Useful productivity tools that work directly in your browser.
+    No AI backend is required.
+  </p>
+
+
+  <!-- =====================================================
+       TOOLS
+       ===================================================== -->
+
+  <div class="menu">
+
+
+    <!-- TEXT EDITOR -->
+
+    <div class="big-card tool-card editor-card">
+
+      <div class="tool-icon">
+        📝
+      </div>
+
+      <h3>Text Editor</h3>
+
+      <p>
+        Write or paste your text here and use the tools below.
+      </p>
+
+      <textarea
+        id="editor"
+        class="editor"
+        placeholder="Start writing here..."
+      ></textarea>
+
+      <div class="counter">
+
+        <span id="wordCount">
+          0 words
+        </span>
+
+        <span id="charCount">
+          0 characters
+        </span>
+
+      </div>
+
+      <div class="tool-row">
+
+        <button
+          id="uppercase"
+          class="small-btn">
+          🔠 Uppercase
+        </button>
+
+        <button
+          id="lowercase"
+          class="small-btn">
+          🔡 Lowercase
+        </button>
+
+        <button
+          id="capitalize"
+          class="small-btn">
+          ✨ Capitalize
+        </button>
+
+        <button
+          id="clean"
+          class="small-btn">
+          🧹 Clean Text
+        </button>
+
+      </div>
+
+      <div class="tool-row">
+
+        <button
+          id="copy"
+          class="small-btn">
+          📋 Copy
+        </button>
+
+        <button
+          id="downloadTxt"
+          class="small-btn">
+          📥 Download TXT
+        </button>
+
+        <button
+          id="clear"
+          class="small-btn">
+          🗑️ Clear
+        </button>
+
+        <button
+          id="saveLocal"
+          class="small-btn">
+          💾 Save Draft
+        </button>
+
+      </div>
+
+      <p
+        id="editorStatus"
+        class="status">
+      </p>
+
+    </div>
+
+
+    <!-- TEXT CONVERTER -->
+
+    <div class="big-card tool-card">
+
+      <div class="tool-icon">
+        🔄
+      </div>
+
+      <h3>Text Converter</h3>
+
+      <p>
+        Quickly convert text into different formats.
+      </p>
+
+      <select id="convertType">
+
+        <option value="sentence">
+          Sentence Case
+        </option>
+
+        <option value="uppercase">
+          UPPERCASE
+        </option>
+
+        <option value="lowercase">
+          lowercase
+        </option>
+
+        <option value="title">
+          Title Case
+        </option>
+
+      </select>
+
+      <button id="convert">
+        Convert Text
+      </button>
+
+      <div
+        id="converterOutput"
+        class="converter-output">
+        Converted text will appear here.
+      </div>
+
+    </div>
+
+
+    <!-- PDF -->
+
+    <div class="big-card tool-card">
+
+      <div class="tool-icon">
+        📄
+      </div>
+
+      <h3>Text → PDF</h3>
+
+      <p>
+        Turn your written content into a printable PDF.
+      </p>
+
+      <button id="pdf">
+        Generate PDF
+      </button>
+
+      <p
+        id="pdfStatus"
+        class="status">
+      </p>
+
+    </div>
+
+
+    <!-- DOCX -->
+
+    <div class="big-card tool-card">
+
+      <div class="tool-icon">
+        📘
+      </div>
+
+      <h3>Text → DOCX</h3>
+
+      <p>
+        Export your text as a Microsoft Word document.
+      </p>
+
+      <button id="docx">
+        Generate DOCX
+      </button>
+
+      <p
+        id="docxStatus"
+        class="status">
+      </p>
+
+    </div>
+
+
+    <!-- VOICE -->
+
+    <div class="big-card tool-card">
+
+      <div class="tool-icon">
+        🎤
+      </div>
+
+      <h3>Voice Typing</h3>
+
+      <p>
+        Speak and let your browser type the words.
+      </p>
+
+      <button id="voice">
+        🎤 Start Voice Typing
+      </button>
+
+      <p
+        id="voiceStatus"
+        class="status">
+      </p>
+
+    </div>
+
+
+    <!-- QUICK INFO -->
+
+    <div class="big-card tool-card">
+
+      <div class="tool-icon">
+        ⚡
+      </div>
+
+      <h3>Quick Tools</h3>
+
+      <p>
+        More productivity features can be added here as Swift Desk grows.
+      </p>
+
+      <button
+        onclick="document.getElementById('editor').focus()">
+        ✍️ Start Writing
+      </button>
+
+    </div>
+
+
+  </div>
+
+
+  <!-- =====================================================
+       NAVIGATION
+       ===================================================== -->
+
+  <div class="nav">
+
+    <a href="dashboard.html">
+      🏠
+    </a>
+
+    <a href="notes.html">
+      📚
+    </a>
+
+    <a href="community.html">
+      🌍
+    </a>
+
+    <a href="tools.html">
+      🛠️
+    </a>
+
+    <a href="profile.html">
+      👤
+    </a>
+
+  </div>
+
+
+  <!-- =====================================================
+       JAVASCRIPT
+       ===================================================== -->
+
+  <script>
+
+    const editor =
+      document.getElementById("editor");
+
+    const wordCount =
+      document.getElementById("wordCount");
+
+    const charCount =
+      document.getElementById("charCount");
+
+    const editorStatus =
+      document.getElementById("editorStatus");
+
+
+    /* -----------------------------------------------------
+       COUNTER
+       ----------------------------------------------------- */
+
+    function updateCounter() {
+
+      const text = editor.value.trim();
+
+      const words =
+        text === ""
+          ? 0
+          : text.split(/\s+/).length;
+
+      wordCount.textContent =
+        words + (words === 1 ? " word" : " words");
+
+      charCount.textContent =
+        editor.value.length +
+        (editor.value.length === 1
+          ? " character"
+          : " characters");
+
+    }
+
+    editor.addEventListener(
+      "input",
+      updateCounter
+    );
+
+
+    /* -----------------------------------------------------
+       UPPERCASE
+       ----------------------------------------------------- */
+
+    document
+      .getElementById("uppercase")
+      .onclick = () => {
+
+        editor.value =
+          editor.value.toUpperCase();
+
+        updateCounter();
+
+      };
+
+
+    /* -----------------------------------------------------
+       LOWERCASE
+       ----------------------------------------------------- */
+
+    document
+      .getElementById("lowercase")
+      .onclick = () => {
+
+        editor.value =
+          editor.value.toLowerCase();
+
+        updateCounter();
+
+      };
+
+
+    /* -----------------------------------------------------
+       CAPITALIZE
+       ----------------------------------------------------- */
+
+    document
+      .getElementById("capitalize")
+      .onclick = () => {
+
+        editor.value =
+          editor.value
+            .toLowerCase()
+            .replace(
+              /(^\s*\w|[.!?]\s*\w)/g,
+              letter => letter.toUpperCase()
+            );
+
+        updateCounter();
+
+      };
+
+
+    /* -----------------------------------------------------
+       CLEAN TEXT
+       ----------------------------------------------------- */
+
+    document
+      .getElementById("clean")
+      .onclick = () => {
+
+        editor.value =
+          editor.value
+            .replace(/[ \t]+/g, " ")
+            .replace(/\n{3,}/g, "\n\n")
+            .trim();
+
+        updateCounter();
+
+      };
+
+
+    /* -----------------------------------------------------
+       COPY
+       ----------------------------------------------------- */
+
+    document
+      .getElementById("copy")
+      .onclick = async () => {
+
+        if (!editor.value.trim()) {
+
+          editorStatus.textContent =
+            "Write something first.";
+
+          return;
+        }
+
+        try {
+
+          await navigator.clipboard.writeText(
+            editor.value
+          );
+
+          editorStatus.textContent =
+            "✓ Text copied.";
+
+        } catch {
+
+          editor.select();
+
+          document.execCommand("copy");
+
+          editorStatus.textContent =
+            "✓ Text copied.";
+
+        }
+
+      };
+
+
+    /* -----------------------------------------------------
+       CLEAR
+       ----------------------------------------------------- */
+
+    document
+      .getElementById("clear")
+      .onclick = () => {
+
+        editor.value = "";
+
+        updateCounter();
+
+        editorStatus.textContent =
+          "Editor cleared.";
+
+      };
+
+
+    /* -----------------------------------------------------
+       SAVE DRAFT
+       ----------------------------------------------------- */
+
+    document
+      .getElementById("saveLocal")
+      .onclick = () => {
+
+        localStorage.setItem(
+          "swift_tools_draft",
+          editor.value
+        );
+
+        editorStatus.textContent =
+          "✓ Draft saved on this device.";
+
+      };
+
+
+    /* -----------------------------------------------------
+       LOAD DRAFT
+       ----------------------------------------------------- */
+
+    const savedDraft =
+      localStorage.getItem(
+        "swift_tools_draft"
+      );
+
+    if (savedDraft) {
+
+      editor.value = savedDraft;
+
+      updateCounter();
+
+    }
+
+
+    /* -----------------------------------------------------
+       DOWNLOAD TXT
+       ----------------------------------------------------- */
+
+    document
+      .getElementById("downloadTxt")
+      .onclick = () => {
+
+        if (!editor.value.trim()) {
+
+          editorStatus.textContent =
+            "Write something first.";
+
+          return;
+        }
+
+        const blob =
+          new Blob(
+            [editor.value],
+            { type: "text/plain" }
+          );
+
+        const url =
+          URL.createObjectURL(blob);
+
+        const link =
+          document.createElement("a");
+
+        link.href = url;
+
+        link.download =
+          "swift-desk-note.txt";
+
+        link.click();
+
+        URL.revokeObjectURL(url);
+
+        editorStatus.textContent =
+          "✓ TXT file created.";
+
+      };
+
+
+    /* -----------------------------------------------------
+       TEXT CONVERTER
+       ----------------------------------------------------- */
+
+    document
+      .getElementById("convert")
+      .onclick = () => {
+
+        const text =
+          editor.value.trim();
+
+        if (!text) {
+
+          document
+            .getElementById("converterOutput")
+            .textContent =
+            "Write something in the editor first.";
+
+          return;
+        }
+
+        const mode =
+          document.getElementById(
+            "convertType"
+          ).value;
+
+        let result = text;
+
+
+        if (mode === "uppercase") {
+
+          result =
+            text.toUpperCase();
+
+        }
+
+
+        if (mode === "lowercase") {
+
+          result =
+            text.toLowerCase();
+
+        }
+
+
+        if (mode === "title") {
+
+          result =
+            text
+              .toLowerCase()
+              .replace(
+                /\b\w/g,
+                c => c.toUpperCase()
+              );
+
+        }
+
+
+        if (mode === "sentence") {
+
+          result =
+            text
+              .toLowerCase()
+              .replace(
+                /(^\s*\w|[.!?]\s*\w)/g,
+                c => c.toUpperCase()
+              );
+
+        }
+
+
+        document
+          .getElementById(
+            "converterOutput"
+          )
+          .textContent = result;
+
+      };
+
+
+    /* -----------------------------------------------------
+       PDF
+       -----------------------------------------------------
+
+       Uses the browser's print dialog.
+       This avoids requiring a server/backend.
+       ----------------------------------------------------- */
+
+    document
+      .getElementById("pdf")
+      .onclick = () => {
+
+        if (!editor.value.trim()) {
+
+          document
+            .getElementById("pdfStatus")
+            .textContent =
+            "Write something first.";
+
+          return;
+        }
+
+        const printWindow =
+          window.open(
+            "",
+            "_blank"
+          );
+
+        if (!printWindow) {
+
+          document
+            .getElementById("pdfStatus")
+            .textContent =
+            "Allow pop-ups to create the PDF.";
+
+          return;
+        }
+
+        const safeText =
+          editor.value
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+
+        printWindow.document.write(`
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Swift Desk Document</title>
+
+            <style>
+
+              body {
+                font-family: Arial, sans-serif;
+                padding: 45px;
+                line-height: 1.7;
+                color: #111827;
+              }
+
+              h1 {
+                margin-bottom: 25px;
+              }
+
+              .content {
+                white-space: pre-wrap;
+              }
+
+            </style>
+
+          </head>
+
+          <body>
+
+            <h1>Swift Desk</h1>
+
+            <div class="content">
+              ${safeText}
+            </div>
+
+          </body>
+          </html>
+        `);
+
+        printWindow.document.close();
+
+        printWindow.focus();
+
+        setTimeout(() => {
+
+          printWindow.print();
+
+        }, 400);
+
+        document
+          .getElementById("pdfStatus")
+          .textContent =
+          "✓ Print dialog opened. Choose 'Save as PDF'.";
+
+      };
+
+
+    /* -----------------------------------------------------
+       DOCX
+       -----------------------------------------------------
+
+       Creates a Word-compatible .doc file without
+       requiring a backend.
+       ----------------------------------------------------- */
+
+    document
+      .getElementById("docx")
+      .onclick = () => {
+
+        if (!editor.value.trim()) {
+
+          document
+            .getElementById("docxStatus")
+            .textContent =
+            "Write something first.";
+
+          return;
+        }
+
+        const content =
+          editor.value
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(
+              /\n/g,
+              "<br>"
+            );
+
+        const html =
+          `
+          <html>
+
+          <head>
+
+            <meta charset="UTF-8">
+
+          </head>
+
+          <body>
+
+            <h1>Swift Desk</h1>
+
+            <p>
+              ${content}
+            </p>
+
+          </body>
+
+          </html>
+          `;
+
+        const blob =
+          new Blob(
+            ["\ufeff", html],
+            {
+              type:
+                "application/msword"
+            }
+          );
+
+        const url =
+          URL.createObjectURL(blob);
+
+        const link =
+          document.createElement("a");
+
+        link.href = url;
+
+        link.download =
+          "swift-desk-document.doc";
+
+        link.click();
+
+        URL.revokeObjectURL(url);
+
+        document
+          .getElementById("docxStatus")
+          .textContent =
+          "✓ Word-compatible document created.";
+
+      };
+
+
+    /* -----------------------------------------------------
+       VOICE TYPING
+       ----------------------------------------------------- */
+
+    const voiceButton =
+      document.getElementById("voice");
+
+    const voiceStatus =
+      document.getElementById(
+        "voiceStatus"
+      );
+
+
+    const SpeechRecognition =
+      window.SpeechRecognition ||
+      window.webkitSpeechRecognition;
+
+
+    let recognition = null;
+
+
+    if (SpeechRecognition) {
+
+      recognition =
+        new SpeechRecognition();
+
+      recognition.continuous = true;
+
+      recognition.interimResults = true;
+
+      recognition.lang = "en-IN";
+
+
+      recognition.onstart = () => {
+
+        voiceButton.textContent =
+          "🔴 Stop Voice Typing";
+
+        voiceButton.classList.add(
+          "voice-active"
+        );
+
+        voiceStatus.textContent =
+          "Listening... speak now.";
+
+      };
+
+
+      recognition.onend = () => {
+
+        voiceButton.textContent =
+          "🎤 Start Voice Typing";
+
+        voiceButton.classList.remove(
+          "voice-active"
+        );
+
+        voiceStatus.textContent =
+          "Voice typing stopped.";
+
+      };
+
+
+      recognition.onerror = event => {
+
+        voiceStatus.textContent =
+          "Voice error: " +
+          event.error;
+
+      };
+
+
+      recognition.onresult = event => {
+
+        let finalText = "";
+
+        for (
+          let i = event.resultIndex;
+          i < event.results.length;
+          i++
+        ) {
+
+          if (
+            event.results[i].isFinal
+          ) {
+
+            finalText +=
+              event.results[i][0].transcript +
+              " ";
+
+          }
+
+        }
+
+        if (finalText) {
+
+          editor.value += finalText;
+
+          updateCounter();
+
+        }
+
+      };
+
+
+      voiceButton.onclick = () => {
+
+        if (
+          voiceButton.classList.contains(
+            "voice-active"
+          )
+        ) {
+
+          recognition.stop();
+
+        } else {
+
+          recognition.start();
+
+        }
+
+      };
+
+    } else {
+
+      voiceButton.disabled = true;
+
+      voiceStatus.textContent =
+        "Voice typing is not supported by this browser.";
+
+    }
+
+
+  </script>
+
+</body>
+</html>
