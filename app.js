@@ -1,49 +1,74 @@
-
 import { app } from "./firebase.js";
 import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
+  updateProfile
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
 const auth = getAuth(app);
 
+const fullNameInput = document.getElementById("fullname");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 
+// SIGN IN
 const signin = document.getElementById("signin");
 if (signin) {
-  signin.onclick = () => {
-    signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value)
-      .then(() => location.href = "dashboard.html")
-      .catch(e => alert(e.message));
+  signin.onclick = async () => {
+    try {
+      await signInWithEmailAndPassword(
+        auth,
+        emailInput.value,
+        passwordInput.value
+      );
+      location.href = "dashboard.html";
+    } catch (e) {
+      alert(e.message);
+    }
   };
 }
 
+// CREATE ACCOUNT
 const signup = document.getElementById("signup");
 if (signup) {
-  signup.onclick = () => {
-    createUserWithEmailAndPassword(auth, emailInput.value, passwordInput.value)
-      .then(() => location.href = "dashboard.html")
-      .catch(e => alert(e.message));
+  signup.onclick = async () => {
+    try {
+      const cred = await createUserWithEmailAndPassword(
+        auth,
+        emailInput.value,
+        passwordInput.value
+      );
+
+      await updateProfile(cred.user, {
+        displayName: fullNameInput.value
+      });
+
+      location.href = "dashboard.html";
+    } catch (e) {
+      alert(e.message);
+    }
   };
 }
 
+// LOGOUT
 const logout = document.getElementById("logout");
 if (logout) {
-  logout.onclick = () => signOut(auth).then(() => location.href = "index.html");
+  logout.onclick = () =>
+    signOut(auth).then(() => (location.href = "index.html"));
 }
 
+// SHOW NAME
 onAuthStateChanged(auth, (user) => {
-  const username = document.getElementById("username");
-  const profileName = document.getElementById("name");
-  const profileEmail = document.getElementById("email");
-
   if (user) {
-    if (username) username.textContent = user.email.split("@")[0];
-    if (profileName) profileName.textContent = user.email.split("@")[0];
+    const username = document.getElementById("username");
+    const profileName = document.getElementById("name");
+    const profileEmail = document.getElementById("email");
+
+    if (username) username.textContent = user.displayName || "Student";
+    if (profileName) profileName.textContent = user.displayName || "Student";
     if (profileEmail) profileEmail.textContent = user.email;
   }
 });
