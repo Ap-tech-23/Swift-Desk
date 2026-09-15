@@ -1,77 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Swift Desk • Sophia Quiz</title>
+  <title>Swift Desk • Sophia AI</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .chat{padding:16px;display:flex;flex-direction:column;gap:12px;height:55vh;overflow:auto}
+    .ai,.you{max-width:85%;padding:12px 14px;border-radius:16px}
+    .ai{background:#1E293B;align-self:flex-start}
+    .you{background:#2563EB;align-self:flex-end}
+    .chips{display:flex;overflow:auto;gap:8px;padding:0 16px 12px}
+    .chip{background:#1E293B;border:none;color:#fff;padding:8px 12px;border-radius:20px;white-space:nowrap}
+    .input{position:fixed;bottom:72px;left:0;right:0;padding:12px;background:#0F172A}
+    .row{display:flex;gap:8px}
+    .row textarea{flex:1;height:52px}
+    .row button{width:70px}
+  </style>
 </head>
 <body>
 
 <div class="hero">
-  <p>📝 Sophia AI</p>
-  <h1>AI Quiz Generator</h1>
-  <p>Create & attempt quizzes</p>
+  <p>🤖 Sophia</p>
+  <h1>AI Study Assistant</h1>
+  <p>Ask doubts, summaries & explanations</p>
 </div>
 
-<div id="setup" class="menu">
-
-  <div class="big-card">
-    <h3>Topic</h3>
-    <input id="topic" placeholder="Photosynthesis">
+<div id="chat" class="chat">
+  <div class="ai">
+    <b>Sophia</b>
+    <p>Hi! I'm Sophia 🌸. Ask me any study question.</p>
   </div>
-
-  <div class="big-card">
-    <h3>Difficulty</h3>
-    <select id="level">
-      <option>Easy</option>
-      <option>Medium</option>
-      <option>Hard</option>
-    </select>
-  </div>
-
-  <div class="big-card">
-    <h3>Questions</h3>
-    <select id="count">
-      <option>5</option>
-      <option>10</option>
-    </select>
-  </div>
-
-  <button id="startQuiz">Generate Quiz</button>
-
 </div>
 
-<div id="quiz" class="menu" style="display:none">
-
-  <div class="big-card">
-    <h3 id="timer">05:00</h3>
-    <p id="qno">Question 1 / 5</p>
-    <h2 id="question"></h2>
-  </div>
-
-  <button class="option" onclick="choose(0)" id="o0"></button>
-  <button class="option" onclick="choose(1)" id="o1"></button>
-  <button class="option" onclick="choose(2)" id="o2"></button>
-  <button class="option" onclick="choose(3)" id="o3"></button>
-
-  <button id="nextBtn">Next</button>
-
+<div class="chips">
+  <button class="chip" onclick="fill('Explain Photosynthesis')">Explain</button>
+  <button class="chip" onclick="fill('Generate 10 MCQs on History')">10 MCQs</button>
+  <button class="chip" onclick="fill('Summarize Chapter 1')">Summary</button>
+  <button class="chip" onclick="fill('Translate to Marathi')">Translate</button>
 </div>
 
-<div id="result" class="menu" style="display:none">
-
-  <div class="big-card">
-    <h1>🎉 Quiz Finished</h1>
-    <h2 id="score"></h2>
-    <p id="remark"></p>
+<div class="input">
+  <div class="row">
+    <textarea id="msg" placeholder="Ask Sophia anything..."></textarea>
+    <button onclick="send()">Send</button>
   </div>
-
-  <div class="big-card">
-    <h3>Sophia's Review</h3>
-    <p>Revise the topic once and practice another quiz for better retention.</p>
-  </div>
-
-  <button onclick="location.reload()">Generate New Quiz</button>
-
 </div>
 
 <div class="nav">
@@ -83,65 +54,53 @@
 </div>
 
 <script>
-const bank=[
-{q:"What is photosynthesis?",o:["Food making process","Respiration","Digestion","Excretion"],a:0},
-{q:"Which pigment absorbs sunlight?",o:["Chlorophyll","Haemoglobin","Melanin","Keratin"],a:0},
-{q:"Plants take which gas?",o:["Oxygen","Nitrogen","Carbon Dioxide","Hydrogen"],a:2},
-{q:"Food is stored as?",o:["Protein","Starch","Fat","Vitamin"],a:1},
-{q:"Energy source is?",o:["Moon","Sunlight","Wind","Water"],a:1}
-];
+const chat=document.getElementById("chat");
+const input=document.getElementById("msg");
 
-let index=0,score=0,selected=-1,time=300,quiz=[];
+function fill(t){input.value=t;input.focus();}
 
-document.getElementById("startQuiz").onclick=()=>{
- quiz=bank.slice(0,Number(count.value));
- setup.style.display="none";
- quizDiv.style.display="flex";
- load();
- runTimer();
-};
-
-const quizDiv=document.getElementById("quiz");
-
-function load(){
- let x=quiz[index];
- qno.innerText=`Question ${index+1} / ${quiz.length}`;
- question.innerText=x.q;
- x.o.forEach((t,i)=>document.getElementById("o"+i).innerText=t);
- selected=-1;
+function add(text,type){
+  const d=document.createElement("div");
+  d.className=type;
+  d.innerHTML=`<b>${type==="ai"?"Sophia":"You"}</b><p>${text}</p>`;
+  chat.appendChild(d);
+  chat.scrollTop=chat.scrollHeight;
 }
 
-function choose(i){
- selected=i;
- ["o0","o1","o2","o3"].forEach(id=>document.getElementById(id).style.background="#2563EB");
- document.getElementById("o"+i).style.background="#16A34A";
+function answer(q){
+  q=q.toLowerCase();
+
+  if(q.includes("photosynthesis"))
+    return "Photosynthesis is the process by which green plants prepare food using sunlight, water and carbon dioxide.";
+
+  if(q.includes("newton"))
+    return "Newton's First Law: An object remains at rest or in uniform motion unless acted upon by an external force.";
+
+  if(q.includes("history"))
+    return "Study history by learning events in chronological order and connecting causes with consequences.";
+
+  if(q.includes("summary"))
+    return "A good chapter summary contains key ideas, important terms, formulas and a 5-point revision note.";
+
+  if(q.includes("marathi"))
+    return "मी मराठीतही अभ्यास समजावून सांगू शकते. तुमचा प्रश्न पाठवा.";
+
+  if(q.includes("mcq"))
+    return "Go to the Quiz page to generate MCQ tests. Sophia Quiz supports timer and scoring.";
+
+  return "I'm Sophia 🌸. I can explain science, maths, history, English and generate study guidance. Ask me any topic!";
 }
 
-nextBtn.onclick=()=>{
- if(selected===quiz[index].a) score++;
- index++;
- if(index<quiz.length) load();
- else finish();
-};
+function send(){
+  const q=input.value.trim();
+  if(!q) return;
 
-function finish(){
- quizDiv.style.display="none";
- result.style.display="flex";
- scoreText=`${score} / ${quiz.length}`;
- document.getElementById("score").innerText=scoreText;
- document.getElementById("remark").innerText=
- score===quiz.length?"Excellent! 🌟":
- score>=3?"Great job! 👍":"Keep practicing 💪";
-}
+  add(q,"you");
+  input.value="";
 
-function runTimer(){
- setInterval(()=>{
-  if(time<=0){finish();return;}
-  time--;
-  let m=String(Math.floor(time/60)).padStart(2,"0");
-  let s=String(time%60).padStart(2,"0");
-  timer.innerText=`${m}:${s}`;
- },1000);
+  setTimeout(()=>{
+    add(answer(q),"ai");
+  },600);
 }
 </script>
 
