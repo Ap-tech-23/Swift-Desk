@@ -1,33 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Swift Desk</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swift Desk • Sophia</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="login-page">
 
-<div class="login-box">
-  <h1>Swift Desk</h1>
-  <p class="sub">Study smarter with AI</p>
+  <div class="login-box">
 
-  <input id="fullname" type="text" placeholder="Full Name">
+    <div class="logo">
+      <h1>Swift Desk</h1>
+      <p>Powered by Sophia AI</p>
+    </div>
 
-  <input id="email" type="email" placeholder="Email Address">
+    <h2>Welcome Back 👋</h2>
 
-  <input id="password" type="password" placeholder="Password">
+    <input id="fullname" type="text" placeholder="Full Name">
 
-  <button id="signin">Sign In</button>
+    <input id="email" type="email" placeholder="Email Address">
 
-  <p class="or">──────── or ────────</p>
+    <input id="password" type="password" placeholder="Password">
 
-  <button id="signup">Create Account</button>
+    <button id="signin">Sign In</button>
 
-  <p class="footer">Crafted by SwiftDesk Technologies</p>
-</div>
+    <div class="divider">
+      <span>OR</span>
+    </div>
 
-<script type="module" src="firebase.js"></script>
-<script type="module" src="app.js"></script>
+    <button id="signup" class="secondary-btn">Create Account</button>
+
+    <div class="feature-box">
+      <p>✨ AI Study with Sophia</p>
+      <p>📝 Generate Smart Quizzes</p>
+      <p>📚 Save Notes & PDFs</p>
+    </div>
+
+    <p class="footer">
+      Crafted by SwiftDesk Technologies
+    </p>
+
+  </div>
+
+  <script type="module" src="firebase.js"></script>
+  <script type="module" src="app.js"></script>
 
 </body>
 </html>
