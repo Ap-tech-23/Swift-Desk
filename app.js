@@ -5,9 +5,9 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
+  updateProfile
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-
 const auth = getAuth(app);
 
 const emailInput = document.getElementById("email");
@@ -35,7 +35,9 @@ if (signup) {
         emailInput.value,
         passwordInput.value
       );
-
+await updateProfile(cred.user, {
+  displayName: fullNameInput.value
+});
       await setDoc(doc(db, "users", cred.user.uid), {
         name: fullNameInput.value,
         email: emailInput.value
@@ -53,20 +55,14 @@ if (logout) {
   logout.onclick = () => signOut(auth).then(() => location.href = "index.html");
 }
 
-onAuthStateChanged(auth, async (user) => {
+onAuthStateChanged(auth, (user) => {
   if (user) {
     const username = document.getElementById("username");
     const profileName = document.getElementById("name");
     const profileEmail = document.getElementById("email");
 
-    const snap = await getDoc(doc(db, "users", user.uid));
-
-    if (snap.exists()) {
-      const data = snap.data();
-
-      if (username) username.textContent = data.name;
-      if (profileName) profileName.textContent = data.name;
-      if (profileEmail) profileEmail.textContent = data.email;
-    }
+    if (username) username.textContent = user.displayName;
+    if (profileName) profileName.textContent = user.displayName;
+    if (profileEmail) profileEmail.textContent = user.email;
   }
 });
