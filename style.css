@@ -1,4 +1,4 @@
-/* SWIFT DESK v2.0 */
+/* SWIFT DESK v3.0 */
 
 *{
   margin:0;
@@ -11,56 +11,50 @@ body{
   background:#0F172A;
   color:#fff;
   min-height:100vh;
-  padding-bottom:90px;
+  padding-bottom:80px;
 }
 
-/* LOGIN */
 .login-page{
   display:flex;
   justify-content:center;
   align-items:center;
   min-height:100vh;
+  padding:20px;
 }
 
 .login-box{
-  width:320px;
+  width:100%;
+  max-width:420px;
   background:#1E293B;
+  border-radius:24px;
   padding:24px;
-  border-radius:22px;
-}
-
-.sub,.footer,.or{
-  color:#CBD5E1;
-  text-align:center;
-  margin:10px 0;
 }
 
 input,select,textarea{
   width:100%;
-  padding:13px;
+  padding:14px;
   margin:8px 0;
   border:none;
   border-radius:12px;
   background:#334155;
-  color:white;
+  color:#fff;
 }
 
 textarea{
+  min-height:100px;
   resize:none;
-  height:90px;
 }
 
 button{
   width:100%;
-  padding:13px;
+  padding:14px;
   border:none;
   border-radius:12px;
   background:#2563EB;
-  color:white;
+  color:#fff;
   font-weight:bold;
 }
 
-/* HERO */
 .hero{
   margin:16px;
   padding:22px;
@@ -68,92 +62,40 @@ button{
   background:linear-gradient(135deg,#2563EB,#7C3AED);
 }
 
-.hero h1{
-  font-size:28px;
-  margin:6px 0;
-}
-
-/* DASHBOARD */
 .stats{
-  display:flex;
+  display:grid;
+  grid-template-columns:1fr 1fr;
   gap:12px;
   margin:16px;
 }
 
 .stat{
-  flex:1;
   background:#172554;
   padding:18px;
-  border-radius:18px;
+  border-radius:16px;
   text-align:center;
 }
 
 .menu{
-  display:flex;
-  flex-direction:column;
+  display:grid;
+  grid-template-columns:1fr;
   gap:12px;
   margin:16px;
 }
 
 .big-card{
   background:#1E293B;
-  padding:18px;
   border-radius:18px;
-  color:white;
+  padding:18px;
+  color:#fff;
   text-decoration:none;
 }
 
-/* SOPHIA CHAT */
-.chat-box{
-  margin:16px;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
-.ai-msg,.user-msg{
-  padding:14px;
-  border-radius:16px;
-  max-width:85%;
-}
-
-.ai-msg{
-  background:#1E293B;
-  align-self:flex-start;
-}
-
-.user-msg{
-  background:#2563EB;
-  align-self:flex-end;
-}
-
-.quick{
-  display:flex;
-  gap:8px;
-  overflow:auto;
-  padding:0 16px;
-}
-
-.chip{
-  background:#1E293B;
-  color:white;
-  border:none;
-  border-radius:20px;
-  padding:8px 14px;
-  white-space:nowrap;
-  width:auto;
-}
-
-.input-area{
-  margin:16px;
-}
-
-/* PROFILE */
 .profile-card{
   margin:16px;
   background:#1E293B;
+  border-radius:22px;
   padding:20px;
-  border-radius:20px;
 }
 
 .avatar{
@@ -164,17 +106,10 @@ button{
   display:flex;
   align-items:center;
   justify-content:center;
-  margin:0 auto 15px;
+  margin:auto;
   font-size:32px;
 }
 
-.info label{
-  display:block;
-  margin-top:12px;
-  color:#CBD5E1;
-}
-
-/* NAVIGATION */
 .nav{
   position:fixed;
   bottom:0;
@@ -187,7 +122,43 @@ button{
 }
 
 .nav a{
-  color:white;
+  color:#fff;
   text-decoration:none;
   font-size:22px;
+}
+
+/* TABLET */
+@media (min-width:768px){
+  .menu{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .stats{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .hero{
+    margin:24px;
+    padding:28px;
+  }
+}
+
+/* LAPTOP / PC */
+@media (min-width:1024px){
+  body{
+    max-width:1200px;
+    margin:auto;
+  }
+
+  .menu{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .login-box{
+    max-width:480px;
+  }
+
+  .hero h1{
+    font-size:40px;
+  }
 }
