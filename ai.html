@@ -1,39 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Swift Desk - AI Study</title>
+  <title>Sophia AI</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="hero">
-  <p>🤖 AI Study Assistant</p>
-  <h1>Ask Anything</h1>
-  <p>Your personal learning companion</p>
+  <p>🤖 Sophia</p>
+  <h1>AI Study Assistant</h1>
+  <p>Ask doubts, summaries & explanations</p>
 </div>
 
-<div class="menu">
+<div class="chat-box" id="chat">
 
-  <div class="big-card">
-    <h3>Ask your doubt</h3>
-    <textarea id="prompt" placeholder="Explain Newton's Laws in simple words..."></textarea>
+  <div class="ai-msg">
+    <b>Sophia</b>
+    <p>Hi! I'm Sophia. What would you like to learn today?</p>
   </div>
 
-  <button id="askAI">Ask AI</button>
+</div>
 
-  <div class="big-card">
-    <h3>Quick Prompts</h3>
-    <p>• Summarize this chapter</p>
-    <p>• Generate 10 MCQs</p>
-    <p>• Explain with examples</p>
-    <p>• Translate to Hindi/Marathi</p>
-  </div>
+<div class="quick">
+  <button class="chip">Explain a topic</button>
+  <button class="chip">Generate MCQs</button>
+  <button class="chip">Summarize notes</button>
+</div>
 
-  <div class="big-card">
-    <h3>AI Response</h3>
-    <p id="answer">Your answer will appear here.</p>
-  </div>
-
+<div class="input-area">
+  <textarea id="prompt" placeholder="Ask Sophia anything..."></textarea>
+  <button id="askAI">Send</button>
 </div>
 
 <div class="nav">
