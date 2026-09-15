@@ -1,29 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My Notes</title>
+  <title>Swift Desk - Notes</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
- 
- <div class="top">
-  <h2>📚 My Notes</h2>
-  <p>Upload & manage study material</p>
+
+<div class="hero">
+  <p>📚 My Notes</p>
+  <h1>Notes Hub</h1>
+  <p>Store your study material</p>
 </div>
 
-<div class="profile-card">
-  <input type="file" id="pdfFile" accept=".pdf">
-  <button id="uploadBtn">Upload PDF</button>
+<div class="menu">
+  <div class="big-card">
+    <h3>Upload PDF</h3>
+    <input type="file" accept=".pdf">
+  </div>
 
-  <h3>Uploaded Notes</h3>
-  <div id="notesList"></div>
+  <div class="big-card">
+    <h3>Title</h3>
+    <input type="text" placeholder="Enter note title">
+  </div>
+
+  <div class="big-card">
+    <h3>Description</h3>
+    <textarea placeholder="Write about this note..."></textarea>
+  </div>
+
+  <button>Save Note</button>
 </div>
-  <div class="nav">
+
+<div class="nav">
   <a href="dashboard.html">🏠</a>
   <a href="notes.html">📚</a>
   <a href="quiz.html">📝</a>
   <a href="ai.html">🤖</a>
   <a href="profile.html">👤</a>
 </div>
+
 </body>
 </html>
