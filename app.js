@@ -1,4 +1,4 @@
-alert("App loaded");
+
 import { app } from "./firebase.js";
 import {
   getAuth,
@@ -8,7 +8,7 @@ import {
   onAuthStateChanged,
   updateProfile
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-
+alert("App loaded");
 const auth = getAuth(app);
 
 const emailInput = document.getElementById("email");
