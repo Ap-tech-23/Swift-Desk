@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Swift Desk • Dashboard</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swift Desk • Dashboard</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -14,13 +16,13 @@
 
 <div class="stats">
   <div class="stat">
-    <h2>12</h2>
+    <h2 id="streak">0</h2>
     <p>Study Streak</p>
   </div>
 
   <div class="stat">
-    <h2>28</h2>
-    <p>Quizzes</p>
+    <h2 id="noteCount">0</h2>
+    <p>My Notes</p>
   </div>
 </div>
 
@@ -28,46 +30,34 @@
 
   <div class="big-card">
     <h3>🔍 Search</h3>
-    <input type="text" placeholder="Search notes, quizzes...">
+    <input id="search" placeholder="Search feature coming soon">
   </div>
 
   <a class="big-card" href="notes.html">
     <h3>📚 My Notes</h3>
-    <p>Open PDFs, folders & summaries</p>
+    <p>Create, search & manage notes</p>
   </a>
 
   <a class="big-card" href="quiz.html">
-    <h3>📝 AI Quiz Generator</h3>
-    <p>Create MCQ, Written & Mixed quizzes</p>
+    <h3>📝 AI Quiz</h3>
+    <p>Generate quizzes with Sophia</p>
   </a>
 
   <a class="big-card" href="ai.html">
     <h3>🤖 Sophia AI</h3>
-    <p>Ask doubts, summaries & explanations</p>
+    <p>Ask doubts & explanations</p>
   </a>
 
   <a class="big-card" href="profile.html">
-    <h3>👤 My Profile</h3>
+    <h3>👤 Profile</h3>
     <p>Class, Board & Progress</p>
   </a>
 
-  <div class="big-card">
-    <h3>📅 Today's Goal</h3>
-    <p>✔ Complete 1 Quiz</p>
-    <p>✔ Read 20 minutes</p>
-    <p>✔ Ask Sophia 3 doubts</p>
-  </div>
+  <a class="big-card" href="premium.html">
+    <h3>👑 Premium</h3>
+    <p>Coming Soon</p>
+  </a>
 
-  <div class="big-card">
-    <h3>🏆 Recent Activity</h3>
-    <p>• Biology Quiz — 92%</p>
-    <p>• History Notes opened</p>
-    <p>• Sophia explained Newton's Law</p>
-  </div>
-<a class="big-card" href="premium.html">
-  <h3>👑 Premium</h3>
-  <p>Coming Soon</p>
-</a>
 </div>
 
 <div class="nav">
@@ -80,6 +70,23 @@
 
 <script type="module" src="firebase.js"></script>
 <script type="module" src="app.js"></script>
+
+<script>
+const notes = JSON.parse(localStorage.getItem("swift_notes") || "[]");
+document.getElementById("noteCount").textContent = notes.length;
+
+// Simple study streak
+const today = new Date().toDateString();
+const last = localStorage.getItem("lastOpen");
+let streak = Number(localStorage.getItem("streak") || 0);
+
+if (last !== today) {
+  streak++;
+  localStorage.setItem("streak", streak);
+  localStorage.setItem("lastOpen", today);
+}
+document.getElementById("streak").textContent = streak;
+</script>
 
 </body>
 </html>
