@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Swift Desk • Community</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .community-intro {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .community-card {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 16px;
+      transition: 0.25s ease;
+    }
+
+    .community-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .community-card h3 {
+      margin-top: 0;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      font-size: 12px;
+      margin-top: 8px;
+    }
+
+    .post-date {
+      color: #94a3b8;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+
+    .empty-community {
+      text-align: center;
+      color: #94a3b8;
+      padding: 25px;
+    }
+
+    .publish-status {
+      margin-top: 10px;
+      color: #94a3b8;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+
+    <p>🌍 Swift Desk</p>
+
+    <h1>Community Hub</h1>
+
+    <p>
+      Share and discover study material
+    </p>
+
+  </div>
+
+
+  <!-- COMMUNITY -->
+  <div class="menu">
+
+    <div class="community-intro">
+      <h2>📚 Study Together</h2>
+
+      <p>
+        Share notes, tests and useful study resources.
+      </p>
+    </div>
+
+
+    <!-- CREATE POST -->
+    <div class="community-card">
+
+      <h3>➕ Share Something</h3>
+
+      <input
+        id="title"
+        type="text"
+        placeholder="Title"
+        maxlength="100"
+      >
+
+      <select id="type">
+
+        <option value="PDF Notes">
+          📄 PDF Notes
+        </option>
+
+        <option value="Image Notes">
+          🖼️ Image Notes
+        </option>
+
+        <option value="Test">
+          📝 Test
+        </option>
+
+        <option value="Google Form">
+          📋 Google Form
+        </option>
+
+        <option value="Study Resource">
+          📚 Study Resource
+        </option>
+
+      </select>
+
+
+      <textarea
+        id="description"
+        rows="5"
+        placeholder="Description or paste your Google Form link..."
+      ></textarea>
+
+
+      <button id="publish">
+        🚀 Publish
+      </button>
+
+      <p
+        id="status"
+        class="publish-status"
+      ></p>
+
+    </div>
+
+
+    <!-- SEARCH -->
+    <div class="community-card">
+
+      <h3>🔍 Find Resources</h3>
+
+      <input
+        id="search"
+        type="text"
+        placeholder="Search community posts..."
+      >
+
+    </div>
+
+
+    <!-- FEED -->
+    <h2>🌎 Community Feed</h2>
+
+    <div id="feed"></div>
+
+  </div>
+
+
+  <!-- BOTTOM NAVIGATION -->
+  <div class="nav">
+
+    <a
+      href="dashboard.html"
+      title="Home"
+      aria-label="Home"
+    >
+      🏠
+    </a>
+
+    <a
+      href="notes.html"
+      title="Notes"
+      aria-label="Notes"
+    >
+      📚
+    </a>
+
+    <a
+      href="community.html"
+      title="Community"
+      aria-label="Community"
+    >
+      🌍
+    </a>
+
+    <a
+      href="tools.html"
+      title="Tools"
+      aria-label="Tools"
+    >
+      🛠️
+    </a>
+
+    <a
+      href="profile.html"
+      title="Profile"
+      aria-label="Profile"
+    >
+      👤
+    </a>
+
+  </div>
+
+
+  <!-- COMMUNITY LOGIC -->
+  <script>
+
+    let posts = JSON.parse(
+      localStorage.getItem("community_posts") || "[]"
+    );
+
+
+    const titleInput =
+      document.getElementById("title");
+
+    const typeInput =
+      document.getElementById("type");
+
+    const descriptionInput =
+      document.getElementById("description");
+
+    const publishButton =
+      document.getElementById("publish");
+
+    const searchInput =
+      document.getElementById("search");
+
+    const feed =
+      document.getElementById("feed");
+
+    const status =
+      document.getElementById("status");
+
+
+    // -----------------------------
+    // SAVE POSTS
+    // -----------------------------
+
+    function savePosts() {
+
+      localStorage.setItem(
+        "community_posts",
+        JSON.stringify(posts)
+      );
+
+    }
+
+
+    // -----------------------------
+    // PUBLISH
+    // -----------------------------
+
+    publishButton.addEventListener(
+      "click",
+      function () {
+
+        const title =
+          titleInput.value.trim();
+
+        const description =
+          descriptionInput.value.trim();
+
+        const type =
+          typeInput.value;
+
+
+        if (!title || !description) {
+
+          status.textContent =
+            "Please fill in the title and description.";
+
+          return;
+
+        }
+
+
+        posts.unshift({
+
+          id: Date.now(),
+
+          title: title,
+
+          type: type,
+
+          description: description,
+
+          date: new Date().toLocaleDateString()
+
+        });
+
+
+        savePosts();
+
+
+        titleInput.value = "";
+
+        descriptionInput.value = "";
+
+        status.textContent =
+          "✅ Published successfully!";
+
+
+        renderPosts();
+
+      }
+    );
+
+
+    // -----------------------------
+    // RENDER
+    // -----------------------------
+
+    function renderPosts() {
+
+      const query =
+        searchInput.value
+          .trim()
+          .toLowerCase();
+
+
+      feed.innerHTML = "";
+
+
+      const filteredPosts =
+        posts.filter(function (post) {
+
+          return (
+
+            post.title
+              .toLowerCase()
+              .includes(query)
+
+            ||
+
+            post.description
+              .toLowerCase()
+              .includes(query)
+
+            ||
+
+            post.type
+              .toLowerCase()
+              .includes(query)
+
+          );
+
+        });
+
+
+      if (filteredPosts.length === 0) {
+
+        feed.innerHTML = `
+          <div class="community-card empty-community">
+            <h3>📭 No resources found</h3>
+            <p>
+              Be the first to share something with the community!
+            </p>
+          </div>
+        `;
+
+        return;
+
+      }
+
+
+      filteredPosts.forEach(function (post) {
+
+        const card =
+          document.createElement("div");
+
+        card.className =
+          "community-card";
+
+
+        card.innerHTML = `
+
+          <h3>${escapeHTML(post.title)}</h3>
+
+          <p>
+            ${escapeHTML(post.description)}
+          </p>
+
+          <span class="tag">
+            ${escapeHTML(post.type)}
+          </span>
+
+          <p class="post-date">
+            Shared on ${escapeHTML(post.date)}
+          </p>
+
+        `;
+
+
+        feed.appendChild(card);
+
+      });
+
+    }
+
+
+    // -----------------------------
+    // SEARCH
+    // -----------------------------
+
+    searchInput.addEventListener(
+      "input",
+      renderPosts
+    );
+
+
+    // -----------------------------
+    // SECURITY
+    // -----------------------------
+
+    function escapeHTML(text) {
+
+      const div =
+        document.createElement("div");
+
+      div.textContent = text;
+
+      return div.innerHTML;
+
+    }
+
+
+    // -----------------------------
+    // START
+    // -----------------------------
+
+    renderPosts();
+
+  </script>
+
+</body>
+</html>
