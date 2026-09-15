@@ -10,16 +10,17 @@ import {
 
 const auth = getAuth(app);
 
-const fullNameInput = document.getElementById("fullname");
-const emailInput = document.getElementById("email");
-const passwordInput = document.getElementById("password");
+// Login page
+const fullName = document.getElementById("fullname");
+const email = document.getElementById("email");
+const password = document.getElementById("password");
 
 // Sign In
 const signin = document.getElementById("signin");
 if (signin) {
   signin.onclick = async () => {
     try {
-      await signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
+      await signInWithEmailAndPassword(auth, email.value, password.value);
       location.href = "dashboard.html";
     } catch (e) {
       alert(e.message);
@@ -34,12 +35,12 @@ if (signup) {
     try {
       const cred = await createUserWithEmailAndPassword(
         auth,
-        emailInput.value,
-        passwordInput.value
+        email.value,
+        password.value
       );
 
       await updateProfile(cred.user, {
-        displayName: fullNameInput.value
+        displayName: fullName.value
       });
 
       location.href = "dashboard.html";
@@ -58,31 +59,15 @@ if (logout) {
   };
 }
 
-// Load profile
+// Load user on Dashboard & Profile
 onAuthStateChanged(auth, (user) => {
   if (!user) return;
 
   const username = document.getElementById("username");
-  const profileName = document.getElementById("name");
-  const profileEmail = document.getElementById("email");
+  const name = document.getElementById("name");
+  const mail = document.getElementById("email");
 
   if (username) username.textContent = user.displayName || "Student";
-  if (profileName) profileName.textContent = user.displayName || "Student";
-  if (profileEmail) profileEmail.textContent = user.email;
-
-  const cls = document.getElementById("class");
-  const board = document.getElementById("board");
-
-  if (cls) cls.value = localStorage.getItem("class") || "Diploma";
-  if (board) board.value = localStorage.getItem("board") || "MSBTE";
+  if (name) name.textContent = user.displayName || "Student";
+  if (mail) mail.textContent = user.email;
 });
-
-// Save Profile
-const save = document.getElementById("saveProfile");
-if (save) {
-  save.onclick = () => {
-    localStorage.setItem("class", document.getElementById("class").value);
-    localStorage.setItem("board", document.getElementById("board").value);
-    alert("Profile Saved!");
-  };
-}
