@@ -1,47 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Swift Desk - Profile</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swift Desk • Profile</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="profile-card">
-
-  <div class="avatar">👤</div>
-
-  <h2 id="name">Student</h2>
+<div class="hero">
+  <p>👤 My Profile</p>
+  <h1 id="name">Student</h1>
   <p id="email">student@email.com</p>
+</div>
 
-  <div class="info">
+<div class="menu">
 
-    <label>Class</label>
+  <div class="big-card">
+    <h3>Class</h3>
     <select id="class">
-      <option>6</option>
-      <option>7</option>
-      <option>8</option>
-      <option>9</option>
       <option>10</option>
       <option>11</option>
       <option>12</option>
       <option selected>Diploma</option>
       <option>College</option>
     </select>
+  </div>
 
-    <label>Board</label>
+  <div class="big-card">
+    <h3>Board</h3>
     <select id="board">
       <option>SSC</option>
       <option>CBSE</option>
       <option>HSC</option>
       <option selected>MSBTE</option>
-      <option>Other</option>
     </select>
-
-    <button id="saveProfile">Save Profile</button>
-
-    <button id="logout">Logout</button>
-
   </div>
+
+  <button id="saveProfile">Save Profile</button>
+  <button id="logout">Logout</button>
 
 </div>
 
