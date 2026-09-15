@@ -1,92 +1,397 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Swift Desk • Dashboard</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Swift Desk • Dashboard</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .dashboard-search {
+      grid-column: 1 / -1;
+    }
+
+    .dashboard-section {
+      margin: 28px 0 14px;
+    }
+
+    .dashboard-section h2 {
+      margin: 0;
+    }
+
+    .dashboard-card {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .dashboard-card p {
+      margin-bottom: 0;
+    }
+
+    .empty-search {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      color: #94a3b8;
+    }
+
+    @media (max-width: 700px) {
+      .dashboard-search {
+        grid-column: auto;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="hero">
-  <p>👋 Welcome Back</p>
-  <h1 id="username">Student</h1>
-  <p>Powered by Sophia AI</p>
-</div>
+  <!-- HERO -->
+  <div class="hero">
 
-<div class="stats">
-  <div class="stat">
-    <h2 id="streak">0</h2>
-    <p>Study Streak</p>
+    <p>👋 Welcome Back</p>
+
+    <h1 id="username">Student</h1>
+
+    <p>
+      Your personal study workspace
+    </p>
+
   </div>
 
-  <div class="stat">
-    <h2 id="noteCount">0</h2>
-    <p>My Notes</p>
+
+  <!-- QUICK STATS -->
+  <div class="stats">
+
+    <div class="stat">
+      <h2 id="streak">0</h2>
+      <p>Study Streak</p>
+    </div>
+
+    <div class="stat">
+      <h2 id="noteCount">0</h2>
+      <p>My Notes</p>
+    </div>
+
   </div>
-</div>
 
-<div class="menu">
 
-  <div class="big-card">
-    <h3>🔍 Search</h3>
-    <input id="search" placeholder="Search feature coming soon">
+  <!-- DASHBOARD -->
+  <div class="menu">
+
+    <!-- SEARCH -->
+    <div class="big-card dashboard-search">
+
+      <h3>🔍 Search Swift Desk</h3>
+
+      <input
+        id="search"
+        type="text"
+        placeholder="Search features..."
+        autocomplete="off"
+      >
+
+    </div>
+
+
+    <!-- MAIN FEATURES -->
+    <div class="dashboard-section">
+      <h2>🚀 Your Workspace</h2>
+    </div>
+
+
+    <a
+      href="notes.html"
+      class="big-card dashboard-card"
+      data-search="notes my notes create notes save notes study notes"
+    >
+      <h3>📚 My Notes</h3>
+
+      <p>
+        Create, save, search and manage your personal notes.
+      </p>
+    </a>
+
+
+    <a
+      href="community.html"
+      class="big-card dashboard-card"
+      data-search="community hub shared notes tests pdf images google forms"
+    >
+      <h3>🌍 Community Hub</h3>
+
+      <p>
+        Discover and share study material with other students.
+      </p>
+    </a>
+
+
+    <a
+      href="tools.html"
+      class="big-card dashboard-card"
+      data-search="tools smart tools text pdf doc voice typing converter editor"
+    >
+      <h3>🛠️ Smart Tools</h3>
+
+      <p>
+        Write, convert, organize and export your text easily.
+      </p>
+    </a>
+
+
+    <a
+      href="quiz.html"
+      class="big-card dashboard-card"
+      data-search="quiz ai quiz mcq test questions practice"
+    >
+      <h3>📝 AI Quiz</h3>
+
+      <p>
+        Practice quizzes and prepare for your exams.
+      </p>
+    </a>
+
+
+    <a
+      href="ai.html"
+      class="big-card dashboard-card"
+      data-search="sophia ai assistant doubts explanation summary"
+    >
+      <h3>🤖 Sophia AI</h3>
+
+      <p>
+        Ask questions, learn concepts and get study help.
+      </p>
+    </a>
+
+
+    <a
+      href="profile.html"
+      class="big-card dashboard-card"
+      data-search="profile account class board progress settings"
+    >
+      <h3>👤 My Profile</h3>
+
+      <p>
+        Manage your account, class and board information.
+      </p>
+    </a>
+
+
+    <a
+      href="premium.html"
+      class="big-card dashboard-card"
+      data-search="premium pro upgrade coming soon"
+    >
+      <h3>👑 Premium</h3>
+
+      <p>
+        More powerful Swift Desk features — Coming Soon.
+      </p>
+    </a>
+
+
+    <div
+      id="emptySearch"
+      class="big-card empty-search"
+    >
+      <h3>🔎 Nothing found</h3>
+      <p>Try searching for another feature.</p>
+    </div>
+
   </div>
 
-  <a class="big-card" href="notes.html">
-    <h3>📚 My Notes</h3>
-    <p>Create, search & manage notes</p>
-  </a>
 
-  <a class="big-card" href="quiz.html">
-    <h3>📝 AI Quiz</h3>
-    <p>Generate quizzes with Sophia</p>
-  </a>
+  <!-- BOTTOM NAVIGATION -->
+  <div class="nav">
 
-  <a class="big-card" href="ai.html">
-    <h3>🤖 Sophia AI</h3>
-    <p>Ask doubts & explanations</p>
-  </a>
+    <a
+      href="dashboard.html"
+      title="Home"
+      aria-label="Home"
+    >
+      🏠
+    </a>
 
-  <a class="big-card" href="profile.html">
-    <h3>👤 Profile</h3>
-    <p>Class, Board & Progress</p>
-  </a>
+    <a
+      href="notes.html"
+      title="Notes"
+      aria-label="Notes"
+    >
+      📚
+    </a>
 
-  <a class="big-card" href="premium.html">
-    <h3>👑 Premium</h3>
-    <p>Coming Soon</p>
-  </a>
+    <a
+      href="community.html"
+      title="Community"
+      aria-label="Community"
+    >
+      🌍
+    </a>
 
-</div>
+    <a
+      href="tools.html"
+      title="Tools"
+      aria-label="Tools"
+    >
+      🛠️
+    </a>
 
-<div class="nav">
-  <a href="dashboard.html">🏠</a>
-  <a href="notes.html">📚</a>
-  <a href="quiz.html">📝</a>
-  <a href="ai.html">🤖</a>
-  <a href="profile.html">👤</a>
-</div>
+    <a
+      href="profile.html"
+      title="Profile"
+      aria-label="Profile"
+    >
+      👤
+    </a>
 
-<script type="module" src="firebase.js"></script>
-<script type="module" src="app.js"></script>
+  </div>
 
-<script>
-const notes = JSON.parse(localStorage.getItem("swift_notes") || "[]");
-document.getElementById("noteCount").textContent = notes.length;
 
-// Simple study streak
-const today = new Date().toDateString();
-const last = localStorage.getItem("lastOpen");
-let streak = Number(localStorage.getItem("streak") || 0);
+  <!-- FIREBASE -->
+  <script type="module" src="firebase.js"></script>
+  <script type="module" src="app.js"></script>
 
-if (last !== today) {
-  streak++;
-  localStorage.setItem("streak", streak);
-  localStorage.setItem("lastOpen", today);
-}
-document.getElementById("streak").textContent = streak;
-</script>
+
+  <!-- DASHBOARD LOGIC -->
+  <script>
+
+    // -----------------------------
+    // NOTES COUNT
+    // -----------------------------
+
+    const notes = JSON.parse(
+      localStorage.getItem("swift_notes") || "[]"
+    );
+
+    const noteCount = document.getElementById("noteCount");
+
+    if (noteCount) {
+      noteCount.textContent = notes.length;
+    }
+
+
+    // -----------------------------
+    // STUDY STREAK
+    // -----------------------------
+
+    const today = new Date().toDateString();
+
+    const lastOpen =
+      localStorage.getItem("lastOpen");
+
+    let streak =
+      Number(localStorage.getItem("streak") || 0);
+
+    if (lastOpen !== today) {
+
+      streak++;
+
+      localStorage.setItem(
+        "streak",
+        streak
+      );
+
+      localStorage.setItem(
+        "lastOpen",
+        today
+      );
+    }
+
+    const streakElement =
+      document.getElementById("streak");
+
+    if (streakElement) {
+      streakElement.textContent = streak;
+    }
+
+
+    // -----------------------------
+    // DASHBOARD SEARCH
+    // -----------------------------
+
+    const search =
+      document.getElementById("search");
+
+    const cards =
+      document.querySelectorAll(
+        ".dashboard-card"
+      );
+
+    const emptySearch =
+      document.getElementById(
+        "emptySearch"
+      );
+
+
+    if (search) {
+
+      search.addEventListener(
+        "input",
+        function () {
+
+          const query =
+            search.value
+              .trim()
+              .toLowerCase();
+
+          let visibleCards = 0;
+
+
+          cards.forEach(function (card) {
+
+            const searchableText =
+              (
+                card.dataset.search +
+                " " +
+                card.innerText
+              ).toLowerCase();
+
+            const matches =
+              searchableText.includes(query);
+
+            if (matches) {
+
+              card.style.display = "";
+
+              visibleCards++;
+
+            } else {
+
+              card.style.display = "none";
+
+            }
+
+          });
+
+
+          if (emptySearch) {
+
+            if (
+              query !== "" &&
+              visibleCards === 0
+            ) {
+
+              emptySearch.style.display =
+                "block";
+
+            } else {
+
+              emptySearch.style.display =
+                "none";
+
+            }
+
+          }
+
+        }
+      );
+
+    }
+
+  </script>
 
 </body>
 </html>
