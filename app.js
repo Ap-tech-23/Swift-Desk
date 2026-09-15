@@ -10,7 +10,7 @@ import {
 
 const auth = getAuth(app);
 
-// ---------- AUTH ----------
+// ---------- LOGIN ----------
 const fullName = document.getElementById("fullname");
 const email = document.getElementById("email");
 const password = document.getElementById("password");
@@ -31,12 +31,16 @@ const signup = document.getElementById("signup");
 if (signup) {
   signup.onclick = async () => {
     try {
-      const user = await createUserWithEmailAndPassword(
+      const cred = await createUserWithEmailAndPassword(
         auth,
         email.value,
         password.value
       );
-      await updateProfile(user.user, { displayName: fullName.value });
+
+      await updateProfile(cred.user, {
+        displayName: fullName.value
+      });
+
       location.href = "dashboard.html";
     } catch (e) {
       alert(e.message);
@@ -44,14 +48,7 @@ if (signup) {
   };
 }
 
-const logout = document.getElementById("logout");
-if (logout) {
-  logout.onclick = async () => {
-    await signOut(auth);
-    location.href = "index.html";
-  };
-}
-
+// ---------- USER ----------
 onAuthStateChanged(auth, (user) => {
   if (!user) return;
 
@@ -59,36 +56,39 @@ onAuthStateChanged(auth, (user) => {
   const name = document.getElementById("name");
   const mail = document.getElementById("email");
 
-  if (username) username.textContent = user.displayName;
-  if (name) name.textContent = user.displayName;
+  if (username) username.textContent = user.displayName || "Student";
+  if (name) name.textContent = user.displayName || "Student";
   if (mail) mail.textContent = user.email;
 });
 
 // ---------- PROFILE ----------
 const save = document.getElementById("saveProfile");
 if (save) {
+  const cls = document.getElementById("class");
+  const board = document.getElementById("board");
+
+  cls.value = localStorage.getItem("class") || "Diploma";
+  board.value = localStorage.getItem("board") || "MSBTE";
+
   save.onclick = () => {
-    localStorage.setItem("class", document.getElementById("class").value);
-    localStorage.setItem("board", document.getElementById("board").value);
+    localStorage.setItem("class", cls.value);
+    localStorage.setItem("board", board.value);
     alert("Profile Saved");
   };
 }
 
-// ---------- SOPHIA AI ----------
+// ---------- SOPHIA ----------
 const chat = document.getElementById("chat");
 const prompt = document.getElementById("prompt");
 const ask = document.getElementById("askAI");
 
-function addMessage(text, type) {
-  const box = document.createElement("div");
-  box.className = type;
+function addMsg(text, me) {
+  if (!chat) return;
 
-  box.innerHTML =
-    type === "ai-msg"
-      ? `<b>Sophia</b><p>${text}</p>`
-      : `<b>You</b><p>${text}</p>`;
-
-  chat.appendChild(box);
+  const div = document.createElement("div");
+  div.className = me ? "user-msg" : "ai-msg";
+  div.innerHTML = `<b>${me ? "You" : "Sophia"}</b><p>${text}</p>`;
+  chat.appendChild(div);
   chat.scrollTop = chat.scrollHeight;
 }
 
@@ -101,13 +101,13 @@ function reply(q) {
   if (q.includes("newton"))
     return "Newton's First Law: A body remains at rest or in uniform motion unless acted upon by an external force.";
 
-  if (q.includes("mcq"))
-    return "I'll generate MCQ quizzes in Swift Desk v2.1. For now, the Quiz page UI is ready.";
-
   if (q.includes("history"))
-    return "Tip: Divide history into events, dates and causes. Learn them in chronological order.";
+    return "Learn history in chronological order: Event → Cause → Effect → Importance.";
 
-  return "I'm Sophia 🌸. I can explain concepts, summarize chapters and help you study. Ask me any topic!";
+  if (q.includes("summary"))
+    return "A good summary includes key ideas, important terms and a 5-point revision note.";
+
+  return "I'm Sophia 🌸. I can explain Science, Maths, History and English. Ask me any study topic!";
 }
 
 if (ask) {
@@ -115,18 +115,20 @@ if (ask) {
     const q = prompt.value.trim();
     if (!q) return;
 
-    addMessage(q, "user-msg");
+    addMsg(q, true);
     prompt.value = "";
 
     setTimeout(() => {
-      addMessage(reply(q), "ai-msg");
-    }, 600);
+      addMsg(reply(q), false);
+    }, 700);
   };
 }
 
-// ---------- QUICK CHIPS ----------
-document.querySelectorAll(".chip").forEach((chip) => {
-  chip.onclick = () => {
-    prompt.value = chip.innerText;
+// ---------- LOGOUT ----------
+const logout = document.getElementById("logout");
+if (logout) {
+  logout.onclick = async () => {
+    await signOut(auth);
+    location.href = "index.html";
   };
-});
+}
