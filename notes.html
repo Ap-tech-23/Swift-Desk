@@ -1,47 +1,50 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Swift Desk • Notes</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    .actions{display:flex;gap:8px}
-    .actions button{flex:1}
-    .note{background:#1E293B;padding:14px;border-radius:16px;margin-top:12px}
-    .top{display:flex;justify-content:space-between;align-items:center}
-    .pin{cursor:pointer;font-size:20px}
-    .empty{text-align:center;color:#94A3B8;padding:30px}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swift Desk • Notes</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.note{background:#1E293B;padding:16px;border-radius:16px;margin:10px 0;cursor:pointer}
+.top{display:flex;justify-content:space-between;align-items:center}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;justify-content:center;align-items:center;padding:20px}
+.box{background:#1E293B;width:100%;max-width:500px;border-radius:18px;padding:18px}
+.preview{color:#CBD5E1}
+</style>
 </head>
 <body>
 
 <div class="hero">
   <p>📚 Swift Desk</p>
   <h1>My Notes</h1>
-  <p>Organize your study notes</p>
+  <p>Create & manage notes</p>
 </div>
 
 <div class="menu">
 
   <div class="big-card">
-    <h3>Search</h3>
-    <input id="search" placeholder="Search notes...">
+    <input id="title" placeholder="Note title">
+    <textarea id="content" placeholder="Write full note..."></textarea>
+    <button id="save">Save Note</button>
   </div>
 
   <div class="big-card">
-    <h3>New Note</h3>
-    <input id="title" placeholder="Note title">
-    <textarea id="content" placeholder="Write your notes here..."></textarea>
-
-    <div class="actions">
-      <button id="save">Save</button>
-      <button id="clear">Clear</button>
-    </div>
+    <input id="search" placeholder="Search notes...">
   </div>
 
   <div id="list"></div>
 
+</div>
+
+<div class="modal" id="modal">
+  <div class="box">
+    <h2 id="viewTitle"></h2>
+    <p id="viewContent"></p>
+    <br>
+    <button onclick="closeNote()">Close</button>
+  </div>
 </div>
 
 <div class="nav">
@@ -53,84 +56,63 @@
 </div>
 
 <script>
-let notes = JSON.parse(localStorage.getItem("swift_notes") || "[]");
+let notes=JSON.parse(localStorage.getItem("swift_notes")||"[]");
 
-const title = document.getElementById("title");
-const content = document.getElementById("content");
-const list = document.getElementById("list");
-const search = document.getElementById("search");
-
-function saveStorage(){
-  localStorage.setItem("swift_notes", JSON.stringify(notes));
+function saveDB(){
+ localStorage.setItem("swift_notes",JSON.stringify(notes));
 }
 
 function render(){
-  list.innerHTML="";
-  let key = search.value.toLowerCase();
+ const key=search.value.toLowerCase();
+ list.innerHTML="";
 
-  let data = notes.filter(n =>
-    n.title.toLowerCase().includes(key) ||
-    n.content.toLowerCase().includes(key)
-  );
-
-  data.sort((a,b)=>b.pin-a.pin);
-
-  if(data.length===0){
-    list.innerHTML='<div class="empty">No notes found</div>';
-    return;
-  }
-
-  data.forEach((n)=>{
-    const card=document.createElement("div");
-    card.className="note";
-    card.innerHTML=`
-      <div class="top">
-        <h3>${n.title}</h3>
-        <span class="pin">${n.pin?"⭐":"☆"}</span>
-      </div>
-      <p>${n.content}</p>
-      <button>Delete</button>
-    `;
-
-    card.querySelector(".pin").onclick=()=>{
-      n.pin=!n.pin;
-      saveStorage();
-      render();
-    };
-
-    card.querySelector("button").onclick=()=>{
-      notes=notes.filter(x=>x.id!==n.id);
-      saveStorage();
-      render();
-    };
-
-    list.appendChild(card);
-  });
+ notes.filter(n=>n.title.toLowerCase().includes(key)||n.content.toLowerCase().includes(key))
+ .forEach(n=>{
+   const d=document.createElement("div");
+   d.className="note";
+   d.innerHTML=`
+    <div class="top">
+      <h3>${n.title}</h3>
+      <button onclick="del(${n.id});event.stopPropagation()">🗑</button>
+    </div>
+    <p class="preview">${n.content.substring(0,80)}...</p>`;
+   d.onclick=()=>openNote(n);
+   list.appendChild(d);
+ });
 }
 
-document.getElementById("save").onclick=()=>{
-  if(title.value===""||content.value==="") return;
+function openNote(n){
+ modal.style.display="flex";
+ viewTitle.innerText=n.title;
+ viewContent.innerText=n.content;
+}
 
-  notes.unshift({
-    id:Date.now(),
-    title:title.value,
-    content:content.value,
-    pin:false
-  });
+function closeNote(){
+ modal.style.display="none";
+}
 
-  saveStorage();
-  title.value="";
-  content.value="";
-  render();
-};
+function del(id){
+ notes=notes.filter(x=>x.id!==id);
+ saveDB();
+ render();
+}
 
-document.getElementById("clear").onclick=()=>{
-  title.value="";
-  content.value="";
+save.onclick=()=>{
+ if(title.value===""||content.value==="") return;
+
+ notes.unshift({
+   id:Date.now(),
+   title:title.value,
+   content:content.value
+ });
+
+ saveDB();
+ title.value="";
+ content.value="";
+ render();
 };
 
 search.oninput=render;
-
 render();
 </script>
 
