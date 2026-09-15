@@ -1,24 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AI Study</title>
+  <title>Swift Desk - AI Study</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="top">
-    <h2>🤖 AI Study</h2>
-    <p>Ask anything</p>
+
+<div class="hero">
+  <p>🤖 AI Study Assistant</p>
+  <h1>Ask Anything</h1>
+  <p>Your personal learning companion</p>
+</div>
+
+<div class="menu">
+
+  <div class="big-card">
+    <h3>Ask your doubt</h3>
+    <textarea id="prompt" placeholder="Explain Newton's Laws in simple words..."></textarea>
   </div>
 
-  <div class="card">
-    AI Assistant coming soon
+  <button id="askAI">Ask AI</button>
+
+  <div class="big-card">
+    <h3>Quick Prompts</h3>
+    <p>• Summarize this chapter</p>
+    <p>• Generate 10 MCQs</p>
+    <p>• Explain with examples</p>
+    <p>• Translate to Hindi/Marathi</p>
   </div>
-  <div class="nav">
+
+  <div class="big-card">
+    <h3>AI Response</h3>
+    <p id="answer">Your answer will appear here.</p>
+  </div>
+
+</div>
+
+<div class="nav">
   <a href="dashboard.html">🏠</a>
   <a href="notes.html">📚</a>
   <a href="quiz.html">📝</a>
   <a href="ai.html">🤖</a>
   <a href="profile.html">👤</a>
 </div>
+
+<script type="module" src="firebase.js"></script>
+<script type="module" src="app.js"></script>
+
 </body>
 </html>
